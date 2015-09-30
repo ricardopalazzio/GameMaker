@@ -1,12 +1,13 @@
 package com.example.palazzzio.palazziogamemaker;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 private Game game;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -12,9 +12,11 @@ public class Passaro {
     private static final int RAIO  = 50;
     private static final Paint vermelho  = Cores.getCorPassaro();
     private int altura;
+    private Tela tela;
 
-    public Passaro(){
+    public Passaro(Tela tela){
         this.altura  =  100;
+        this.tela = tela;
     }
 
     public void desenhaNO(Canvas canvas){
@@ -22,6 +24,15 @@ public class Passaro {
     }
 
     public void cai(){
-        this.altura +=5;
+        boolean chegouNochao  =( altura + RAIO >tela.getAltura());
+        if(!chegouNochao) {
+            this.altura += 5;
+        }
+    }
+
+    public void pula(){
+        if(altura > RAIO) {
+            this.altura -= 150;
+        }
     }
 }

@@ -4,27 +4,37 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by palazzzio on 29/09/15.
  */
-public class Game extends SurfaceView  implements  Runnable{
+public class Game extends SurfaceView  implements  Runnable,
+        View.OnTouchListener{
+
     public boolean isRunning = true;
     private final SurfaceHolder holder  = getHolder();
     private Passaro passaro;
     private Bitmap background ;
     private Tela tela;
+    private  Canos canos;
 
     public Game(Context context) {
         super(context);
         inicializaElementos();
+        setOnTouchListener(this);
     }
 
     public void inicializaElementos() {
-        this.passaro  = new Passaro();
         this.tela  = new Tela(getContext());
+        this.canos  = new Canos(this.tela);
+        this.passaro  = new Passaro(this.tela);
         this.background = BitmapFactory.decodeResource(getResources(),R.drawable.background);
         this.background = Bitmap.createScaledBitmap(this.background , this.background.getWidth(),tela.getAltura(),false);
     }
@@ -37,6 +47,8 @@ public class Game extends SurfaceView  implements  Runnable{
             Canvas canvas  = holder.lockCanvas();
             canvas.drawBitmap(this.background,0,0,null);
             passaro.desenhaNO(canvas);
+            canos.desenhaNo(canvas);
+            canos.move();
             passaro.cai();
 
 
@@ -50,5 +62,11 @@ public class Game extends SurfaceView  implements  Runnable{
 
     public void inicia(){
         this.isRunning  = true;
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        passaro.pula();
+        return false;
     }
 }

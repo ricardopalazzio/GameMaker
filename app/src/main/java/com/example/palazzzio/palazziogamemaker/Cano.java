@@ -7,8 +7,8 @@ import android.graphics.Canvas;
  */
 public class Cano {
 
-    private static final int TAMANHO_DO_CANO  = 250;
-    private static final int LARGURA_DO_CANO  = 100;
+    public static final int TAMANHO_DO_CANO  = 100;
+    public static final int LARGURA_DO_CANO  = 100;
     private int alturaDoCanoInferior;
     private int alturaDoCanoSuperior;
     private Tela tela;
@@ -52,5 +52,14 @@ public class Cano {
 
     public int getPosicao() {
         return posicao;
+    }
+
+    public boolean temColisaoVerticalCom(Passaro passaro){
+        return (passaro.getAltura() - passaro.RAIO) < this.alturaDoCanoSuperior
+                || (passaro.getAltura() + passaro.RAIO) > this.alturaDoCanoInferior;
+    }
+
+    public boolean temColisaoHorizontalCom(Passaro passaro){
+        return (this.posicao -passaro.X) < passaro.RAIO;
     }
 }

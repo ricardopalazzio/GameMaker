@@ -24,6 +24,8 @@ public class Game extends SurfaceView  implements  Runnable,
     private Bitmap background ;
     private Tela tela;
     private  Canos canos;
+    private Pontuacao pontuacao;
+    private GameOver gm;
 
     public Game(Context context) {
         super(context);
@@ -33,8 +35,10 @@ public class Game extends SurfaceView  implements  Runnable,
 
     public void inicializaElementos() {
         this.tela  = new Tela(getContext());
-        this.canos  = new Canos(this.tela);
-        this.passaro  = new Passaro(this.tela);
+        this.pontuacao  = new Pontuacao();
+        this.gm = new GameOver(this.tela);
+        this.canos  = new Canos(this.tela, pontuacao);
+        this.passaro  = new Passaro(this.tela, getContext());
         this.background = BitmapFactory.decodeResource(getResources(),R.drawable.background);
         this.background = Bitmap.createScaledBitmap(this.background , this.background.getWidth(),tela.getAltura(),false);
     }
@@ -45,11 +49,20 @@ public class Game extends SurfaceView  implements  Runnable,
             if(!holder.getSurface().isValid()) continue;
 
             Canvas canvas  = holder.lockCanvas();
-            canvas.drawBitmap(this.background,0,0,null);
+            canvas.drawBitmap(this.background, 0, 0, null);
+            if(new ColisaoCalc(passaro, canos).temColisao()) {
+                isRunning = false;
+                gm.desenhaNo(canvas);
+            }
+
             passaro.desenhaNO(canvas);
+            passaro.cai();
+
             canos.desenhaNo(canvas);
             canos.move();
-            passaro.cai();
+
+            pontuacao.desenhaNo(canvas);
+
 
 
             holder.unlockCanvasAndPost(canvas);

@@ -12,11 +12,14 @@ import java.util.ListIterator;
 public class Canos {
     private static final int QUANTIDADE_DE_CANOS = 15;
     private static final int DISTANCIA_ENTRE_CANOS = 250;
+    private Pontuacao pontuacao;
 
     private final List<Cano> canos = new ArrayList<Cano>();
     private Tela tela;
-    public Canos(Tela tela) {
+
+    public Canos(Tela tela, Pontuacao pontuacao) {
         this.tela  = tela;
+        this.pontuacao  = pontuacao;
         int posicaoInicial = 200;
 
         for (int i = 0; i < QUANTIDADE_DE_CANOS; i++) {
@@ -37,6 +40,7 @@ public class Canos {
             cano = (Cano) iterator.next();
             cano.move();
             if(cano.saiuDaTela()){
+                pontuacao.aumenta();
                 iterator.remove();
                 Cano outroCano = new Cano(this.tela, getMaximo() );
                 iterator.add(outroCano);
@@ -46,6 +50,16 @@ public class Canos {
     }
 
     private int getMaximo(){
-        return canos.get(canos.size()-1).getPosicao()+DISTANCIA_ENTRE_CANOS;
+        return canos.get(canos.size()-1).getPosicao()+DISTANCIA_ENTRE_CANOS+Cano.LARGURA_DO_CANO;
+    }
+
+    public boolean temColisaoCom(Passaro passaro){
+        for (Cano cano : canos) {
+            if(cano.temColisaoHorizontalCom(passaro) &&
+                    cano.temColisaoVerticalCom(passaro)){
+                return true;
+            }
+        }
+        return false;
     }
 }

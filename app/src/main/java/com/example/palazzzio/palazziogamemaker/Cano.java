@@ -7,7 +7,7 @@ import android.graphics.Canvas;
  */
 public class Cano {
 
-    public static final int TAMANHO_DO_CANO  = 100;
+    public static final int TAMANHO_DO_CANO  = 90;
     public static final int LARGURA_DO_CANO  = 100;
     private int alturaDoCanoInferior;
     private int alturaDoCanoSuperior;
@@ -42,7 +42,7 @@ public class Cano {
     }
 
     private int valorAleatorio(){
-        return(int) (Math.random() *150);
+        return(int) (Math.random() *480);
     }
 
 

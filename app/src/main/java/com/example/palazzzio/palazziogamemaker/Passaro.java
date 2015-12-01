@@ -30,22 +30,22 @@ public class Passaro {
 
         Bitmap bp  = BitmapFactory.decodeResource(this.context.getResources(),
                 R.drawable.passaro);
-        Bitmap.createScaledBitmap(bp,RAIO*2,getRAIO()*2,false);
-        canvas.drawBitmap(bp, X - RAIO, altura - RAIO, null);
+        Bitmap.createScaledBitmap(bp,(RAIO*2),(getRAIO()*2),false);
+        canvas.drawBitmap(bp, (X - RAIO), (altura - RAIO), null);
 
     }
 
     public void cai(){
         boolean chegouNochao  =( altura + RAIO >tela.getAltura());
         if(!chegouNochao) {
-            this.altura += 5;
+            this.altura += 8;
         }
     }
 
     public void pula(){
         if(altura > RAIO) {
             this.sound.play(Sound.PULO);
-            this.altura -= 100;
+            this.altura -= 50;
         }
     }
 

@@ -50,10 +50,6 @@ public class Game extends SurfaceView  implements  Runnable,
 
             Canvas canvas  = holder.lockCanvas();
             canvas.drawBitmap(this.background, 0, 0, null);
-            if(new ColisaoCalc(passaro, canos).temColisao()) {
-                isRunning = false;
-                gm.desenhaNo(canvas);
-            }
 
             passaro.desenhaNO(canvas);
             passaro.cai();
@@ -63,6 +59,10 @@ public class Game extends SurfaceView  implements  Runnable,
 
             pontuacao.desenhaNo(canvas);
 
+            if(new ColisaoCalc(passaro, canos).temColisao()) {
+                isRunning = false;
+                gm.desenhaNo(canvas);
+            }
 
 
             holder.unlockCanvasAndPost(canvas);
